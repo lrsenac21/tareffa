@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="medium">
+    <ion-title>
+      Lista de Tarefas
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngIf="tarefas.length == 0" >
+
+      <p>Não exitem tarefas</p>
+    </ion-item>
+    <ion-item-sliding *ngFor="let tarefa of tarefas">
+      <ion-item>
+        <ion-label *ngIf="tarefa.status == false">{{tarefa.descricao}}</ion-label>
+        <ion-label *ngIf="tarefa.status == true"><s>{{tarefa.descricao}}</s></ion-label>
+        <ion-icon slot="start" name="radio-button-off" *ngIf="!tarefa.status"></ion-icon>
+      <ion-icon slot = "start" name = "checkmark-circle" *ngIf="tarefa.status"></ion-icon>
+      </ion-item>
+
+      
+
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="apagar(tarefa.id)">Deletar</ion-item-option>
+        <ion-item-option color="primary" (click)="showEdit(tarefa)">Editar</ion-item-option>
+        <ion-item-option (click)="alterarStatus(tarefa)" color="dark" *ngIf="!tarefa.status"><ion-icon name="radio-button-off"></ion-icon></ion-item-option>    
+        <ion-item-option (click)="alterarStatus(tarefa)" color="dark" *ngIf="tarefa.status"><ion-icon name="checkmark-circle"></ion-icon></ion-item-option>    
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+
+    <ion-fab vertical="bottom" horizontal="end">
+      <ion-fab-button color="secondary" (click)="showAdd()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+
+    </ion-fab>
+
+</ion-content>
